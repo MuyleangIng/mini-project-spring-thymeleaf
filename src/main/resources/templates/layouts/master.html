@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+  <meta charset="UTF-8">
+  <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE ">NFTs</title>
+
+  <th:block th:replace="~{fragments/styles}"></th:block>
+  <th:block layout:fragment="substyles">
+    <!-- individual web page styles  -->
+  </th:block>
+</head>
+<style>
+  .fixedButton{
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+    padding: 20px;
+  }
+  .roundedFixedBtn{
+    height: 60px;
+    line-height: 80px;
+    width: 60px;
+    font-size: 4em;
+    font-weight: bold;
+    border-radius: 50%;
+    /*background-color: #4CAF50;*/
+    color: blue;
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+  }
+
+
+</style>
+<body>
+
+<!--<th:block th:replace=""></th:block>-->
+
+<div th:replace="~{fragments/navbar}"></div>
+
+<main class="container" layout:fragment="main-content">
+  <!-- individual web page content  -->
+</main>
+
+<div th:replace="~{fragments/footer}"></div>
+
+<th:block layout:fragment="subscript">
+  <!-- individual web page script  -->
+  <a  href="/article/new" class="fixedButton" >
+    <div class="roundedFixedBtn"><i class="bi bi-plus-circle"></i></div>
+  </a>
+</th:block>
+<th:block th:replace="~{fragments/scripts}"></th:block>
+</body>
+</html>

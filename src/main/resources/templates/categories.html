@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/master}"
+      th:object="${catArt}"
+>
+<head>
+    <title th:text="${catArt.category().name}">Article Page</title>
+
+</head>
+<body>
+<main class="px-0" layout:fragment="main-content">
+    <div class="container card mt-3">
+        <div class="mb-4 d-flex justify-content-center  ">
+            <div class="m-0 text-uppercase position-relative">
+                <span class="fs-4">Category: <span class="fw-bolder" th:text="${catArt.category.name}"></span> - Articles</span>
+                <small th:text="${catArt.articles.size()}" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                </small>
+            </div>
+        </div>
+        <div th:if="${!catArt.articles.isEmpty()}" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-3">
+            <div class="col" th:each="article : ${catArt.articles}" th:object="${article}">
+                <div
+                        th:replace="~{fragments/card::readonly(*{uuid},*{title},*{thumbnail},*{author},*{description},*{categories})}"
+                ></div>
+            </div>
+        </div>
+
+
+    </div>
+</main>
+</body>
+</html>

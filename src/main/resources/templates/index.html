@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/master}"
+>
+<head>
+    <title>NFTs</title>
+</head>
+<body>
+<main class="px-3 container"  layout:fragment="main-content">
+    <!--  Welcome to start  -->
+    <div th:replace="~{fragments/welcome}"></div>
+    <!--  End welcome  -->
+
+    <!--  Card  -->
+    <div class="album py-5">
+        <div class="row">
+            <h4 class="m-0">Total Card : <span th:text="${articles.size()}"></span></h4>
+            <div class="col-md-8">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-2">
+
+                    <div class="col" th:each="article : ${articles}" th:object="${article}">
+                        <div
+                                th:replace="~{fragments/card::readonly(*{uuid},*{title},*{thumbnail},*{author},*{description},*{categories})}"
+                        ></div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0">
+                    <h3 class="card-header bg-danger-subtle">
+                        Total Category: <span th:text="${categories.size()}"></span>
+                    </h3>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <a class="list-group-item"
+                               th:each="category : ${categories}"
+                               th:href="@{/categories/{id}(id=${category.id})}"
+                               th:text="${category.name}">
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  End card  -->
+</main>
+</body>
+</html>

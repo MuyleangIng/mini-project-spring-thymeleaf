@@ -1,0 +1,117 @@
+<section>
+    <!--    Card Readonly ~ Start -->
+    <a th:fragment="readonly(uuid, title, thumbnail,author,description,categories)"
+       th:href="@{/article/{uuid}(uuid=${uuid})}"
+       class="card h-100 shadow-sm text-decoration-none border-0">
+        <img th:src="@{${thumbnail}}" alt="picture" class="bd-placeholder-img card-img-top">
+        <div class="card-body position-relative">
+            <div class="position-absolute start-0 translate-middle-y">
+                <div class="d-flex">
+                    <div
+                            class="text-bg-dark rounded-pill"
+                            style="width: 50px;height: 50px;"
+                    >
+                        <img th:src="@{${author.avatar}}" alt="picture"
+                             class="w-100 h-100 object-fit-cover rounded-pill border-3">
+                    </div>
+                    <div class="align-self-end mb-0 ms-2">
+
+                        <div>
+                            <small class="text-primary" th:text="${#strings.prepend(author.username,'@')}"></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <h5 class="card-title" th:text="${title}">Card title</h5>
+            <div>
+                <span class="badge rounded-pill text-bg-warning bg-cat"
+                      th:each="category : ${categories}"
+                      th:object="${category}"
+                      th:text="${category.name}"
+                >
+                </span>
+            </div>
+            <div th:if="${#strings.length(description)>60}">
+                <p class="card-text" th:text="${#strings.substring(description,0,60).concat('...')}"></p>
+            </div>
+            <div th:if="${#strings.length(description)<60}">
+                <p class="card-text" th:text="${description}"></p>
+            </div>
+        </div>
+
+    </a>
+    <!--    Card Readonly ~ End -->
+
+    <!--    Card Action ~ Start -->
+    <div class="card  h-100"
+         th:fragment="action(uuid, title, thumbnail,author,description,categories)">
+        <img th:src="@{${thumbnail}}" alt="picture" class="bd-placeholder-img card-img-top">
+        <div class="card-body position-relative">
+            <div class="position-absolute start-0 translate-middle-y">
+                <div class="d-flex">
+                    <div
+                            class="text-bg-dark rounded-pill"
+                            style="width: 50px;height: 50px;"
+                    >
+                        <img th:src="@{${author.avatar}}" alt="picture"
+                             class="w-100 h-100 object-fit-cover rounded-pill border-3">
+                    </div>
+                    <div class="align-self-end mb-0 ms-2">
+
+                        <div>
+                            <small th:text="${#strings.prepend(author.username,'@')}"></small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <h5 class="card-title" th:text="${title}">Card title</h5>
+            <div th:if="${#strings.length(description)>60}">
+                <p class="card-text" th:text="${#strings.substring(description,0,60).concat('...')}"></p>
+            </div>
+            <div th:if="${#strings.length(description)<60}">
+                <p class="card-text" th:text="${description}"></p>
+            </div>
+            <div>
+                <a
+
+                        class="badge rounded-pill text-bg-warning text-decoration-none"
+                        th:each="category : ${categories}"
+                        th:href="@{/categories/{id}(id=${category.id})}"
+                        th:object="${category}"
+                        th:text="${category.name}">
+                </a>
+            </div>
+        </div>
+        <div class="card-footer border-0 bg-transparent d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+                <a th:href="@{/article/{uuid}(uuid=${uuid})}" class="btn btn-primary"><i
+                        class="bi bi-eye"></i> View</a>
+                <button type="button" class="btn btn-warning"><i class="bi bi-pencil-square"></i> Edit
+                </button>
+                <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i> Delete</button>
+            </div>
+
+
+        </div>
+    </div>
+    <!--    Card Action ~ End -->
+
+    <!--    Card Author ~ Start -->
+    <div class="card shadow-sm border-0 h-100" th:fragment="author(user)">
+        <img th:src="${user.avatar}" class="card-img-top" th:alt="${user.username}">
+        <div class="card-body">
+            <h5 class="card-title mb-0 text-uppercase" th:text="${user.name}">Card title</h5>
+            <b class="text-primary" th:text="${#strings.prepend(user.username,'@')}"></b>
+            <p class="mb-1">Gender: <span class="text-capitalize" th:text="${user.gender}"></span></p>
+
+            <p class="mb-1">Email: <span th:text="${user.email}"></span></p>
+        </div>
+        <div class=" text-center">
+            <a th:href="@{/authors/{id}(id=${user.id})}" class="btn btn-primary btn-sm"><i class="bi bi-eye"></i> View
+                Profile</a>
+        </div>
+    </div>
+    <!--    Card Author ~ End -->
+</section>
